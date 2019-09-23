@@ -11,6 +11,8 @@ namespace RPGStore
         protected int itemCost;
         protected string itemName;
         protected string itemDescription;
+        protected int itemStat;
+        protected int alphaID;
 
         public string GetName()
         {
@@ -23,6 +25,14 @@ namespace RPGStore
         public int GetCost()
         {
             return itemCost;
+        }
+        public virtual int GetStat()
+        {
+            return itemStat;
+        }
+        public int GetAlphaID()
+        {
+            return alphaID;
         }
     }
 }

@@ -10,14 +10,15 @@ namespace RPGStore
     {
         private int _buff;
 
-        public Potions(string newName, int buffId, int newCost, string newDescription)
+        public Potions(string newName, int buffId, int newCost, int newAlphaID, string newDescription)
         {
             itemName = newName;
             _buff = buffId;
             itemCost = newCost;
             itemDescription = newDescription;
+            alphaID = newAlphaID;
         }
-        public int GetStat()
+        public override int GetStat()
         {
             return _buff;
         }       

@@ -10,14 +10,15 @@ namespace RPGStore
     {
         private int _defense;
 
-        public Armor(string newName, int newDefense, int newCost, string newDescription)
+        public Armor(string newName, int newDefense, int newCost, int newAlphaID, string newDescription)
         {
             itemName = newName;
             _defense = newDefense;
             itemCost = newCost;
             itemDescription = newDescription;
+            alphaID = newAlphaID;
         }
-        public int GetStat()
+        public override int GetStat()
         {
             return _defense;
         }        
