@@ -8,15 +8,16 @@ namespace RPGStore
 {
     class Program
     {
+        static string playerName = "";
+
         static void Main(string[] args)
-        {
-            string playerName = "";
+        {            
 
             Console.WriteLine("Welcome! What is your name?");
             playerName = Console.ReadLine();
 
             Game game = new Game();
-            game.Print();
+            game.Menu(playerName);
 
             Console.ReadKey();
         }

@@ -17,7 +17,7 @@ namespace RPGStore
             itemCost = newCost;
             itemDescription = newDescription;
         }
-        public int GetDefense()
+        public int GetStat()
         {
             return _defense;
         }        

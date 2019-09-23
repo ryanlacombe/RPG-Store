@@ -20,5 +20,9 @@ namespace RPGStore
         {
             return itemDescription;
         }
+        public int GetCost()
+        {
+            return itemCost;
+        }
     }
 }
