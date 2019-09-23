@@ -139,6 +139,22 @@ namespace RPGStore
 
                     inStore = true;
                 }
+                else if (input == "3")
+                {
+
+                }
+                else if (input == "4")
+                {
+
+                }
+                else if (input == "5")
+                {
+                    Chat();
+                }
+                else if (input == "9")
+                {
+
+                }
             }
         }
         public void PlayerList()
@@ -340,7 +356,7 @@ namespace RPGStore
                 {
                     if (itemStat == "Damage")
                     {
-
+                        Console.WriteLine((o + 2) + ": ");
                         i = o;
                     }
                     else if (itemStat == "Defense")
@@ -364,6 +380,7 @@ namespace RPGStore
                     Console.WriteLine(playerInventory[i].GetStat());
                     Console.WriteLine(playerInventory[i].GetCost());
                     Console.WriteLine(playerInventory[i].GetDescription());
+                    inspectInput = "0";
                 }
             }
         }
@@ -405,6 +422,7 @@ namespace RPGStore
                     Console.WriteLine(storeInventory[i].GetStat());
                     Console.WriteLine(storeInventory[i].GetCost());
                     Console.WriteLine(storeInventory[i].GetDescription());
+                    inspectInput = "0";
                 }
             }
         }
