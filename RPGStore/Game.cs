@@ -7,7 +7,7 @@ using System.IO;
 
 namespace RPGStore
 {
-    class Game
+    class Game : Inventory
     {
         //Creates a Random seed
         Random rand = new Random();
@@ -472,8 +472,6 @@ namespace RPGStore
             string buyInput = "";
             int userFunds = GetPlayerFunds();
             int storeFunds = GetShopFunds();
-            storeArray = storeInventory;
-            playerArray = playerInventory;
 
             while (buyInput != "0")
             {
@@ -489,8 +487,6 @@ namespace RPGStore
                 //Checks the input and reacts accordingly
                 for (int o = 0; o < storeArray.Length; o++)
                 {
-                    /*storeArray = storeInventory;
-                    playerArray = playerInventory;*/
                     if (Convert.ToInt32(buyInput) == (o + 1))
                     {
                         Console.WriteLine("");

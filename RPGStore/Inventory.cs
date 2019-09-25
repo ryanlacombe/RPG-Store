@@ -30,9 +30,14 @@ namespace RPGStore
             //Creates new array
             Item[] middleList = new Item[arrayLists.Length + 1];
             //Puts values of old arry in new array
+            int newposition = 0;
             for (int i = 0; i < arrayLists.Length + 1; i++)
             {
-                middleList[i] = arrayLists[i];
+                if (i != arrayLists.Length)
+                {
+                    middleList[newposition] = arrayLists[i];
+                    newposition++;
+                }
                 //Adds the index to the end of the array
                 int arrayEnd = arrayLists.Length;
                 middleList[arrayEnd] = arrayLists[index];
