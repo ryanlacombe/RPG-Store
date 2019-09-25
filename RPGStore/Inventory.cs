@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RPGStore
 {
-    class ArrayList
+    class Inventory
     {
-        public virtual void Remove(Item[] arrayLists, int index)
+        public void Remove(Item[] arrayLists, int index)
         {
             //Creates new array
             Item[] newList = new Item[arrayLists.Length - 1];
@@ -25,19 +25,14 @@ namespace RPGStore
             //Set the current array to the new array
             arrayLists = newList;
         }
-        public virtual void Add(Item[] arrayLists, int index)
+        public void Add(Item[] arrayLists, int index)
         {
             //Creates new array
             Item[] middleList = new Item[arrayLists.Length + 1];
             //Puts values of old arry in new array
-            int newposition = 0;
             for (int i = 0; i < arrayLists.Length + 1; i++)
-            {               
-                if (i != arrayLists.Length)
-                {
-                    middleList[newposition] = arrayLists[i];
-                    newposition++;
-                }
+            {
+                middleList[i] = arrayLists[i];
                 //Adds the index to the end of the array
                 int arrayEnd = arrayLists.Length;
                 middleList[arrayEnd] = arrayLists[index];

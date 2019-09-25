@@ -7,7 +7,7 @@ using System.IO;
 
 namespace RPGStore
 {
-    class Game : ArrayList
+    class Game
     {
         //Creates a Random seed
         Random rand = new Random();
@@ -466,20 +466,14 @@ namespace RPGStore
                 }
             }
         }
-        public override void Remove(Item[] arrayLists, int index)
-        {
-            base.Remove(arrayLists, index);
-        }
-        public override void Add(Item[] arrayLists, int index)
-        {
-            base.Add(arrayLists, index);
-        }
         public void Buy(Item[] playerArray, Item[] storeArray)
         {
             //Creates variables for function
             string buyInput = "";
-            int playerFunds = GetPlayerFunds();
+            int userFunds = GetPlayerFunds();
             int storeFunds = GetShopFunds();
+            storeArray = storeInventory;
+            playerArray = playerInventory;
 
             while (buyInput != "0")
             {
@@ -495,15 +489,16 @@ namespace RPGStore
                 //Checks the input and reacts accordingly
                 for (int o = 0; o < storeArray.Length; o++)
                 {
+                    /*storeArray = storeInventory;
+                    playerArray = playerInventory;*/
                     if (Convert.ToInt32(buyInput) == (o + 1))
                     {
                         Console.WriteLine("");
                         Console.WriteLine("You buy the " + storeArray[o].GetName() + " for " + storeArray[o].GetCost() + " gold.");
                         Add(playerArray, o);
-                        Remove(storeArray, o);                        
-                        playerFunds = (playerFunds - storeArray[o].GetCost());
-                        storeFunds = (storeFunds - storeArray[o].GetCost());
-                        o--;
+                        Remove(storeArray, o);
+                        playerFunds = (userFunds - storeArray[o].GetCost());
+                        shopFunds = (storeFunds + storeArray[o].GetCost());
                         Console.WriteLine("Your funds are now: " + GetPlayerFunds());
                         //Exits the Buy function
                         Console.WriteLine("\nPress any key to continue.");
