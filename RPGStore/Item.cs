@@ -13,6 +13,7 @@ namespace RPGStore
         protected string itemDescription;
         protected int itemStat;
         protected int alphaID;
+        
 
         public string GetName()
         {
@@ -34,5 +35,6 @@ namespace RPGStore
         {
             return alphaID;
         }
+        
     }
 }
