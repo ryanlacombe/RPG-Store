@@ -174,7 +174,7 @@ namespace RPGStore
                 }
                 else if (input == "9")
                 {
-                    DevFunction();
+                    DevFunction(userName);
                 }
             }
         }
@@ -304,7 +304,7 @@ namespace RPGStore
                 //Gets User's input
                 sellInput = Console.ReadLine();
                 //Checks the input and reacts accordingly
-                for (int o = 0; o < storeInventory.Length; o++)
+                for (int o = 0; o < playerInventory.Length; o++)
                 {
                     if (Convert.ToInt32(sellInput) == (o + 1))
                     {
@@ -362,9 +362,72 @@ namespace RPGStore
                 StreamReader reader = File.OpenText(path1);
             }
         }
-        public void DevFunction()
+        public void DevFunction(string userName)
         {
+            string debugInput = "";
 
+            Console.WriteLine("\nYou have activated the debug function.");
+            Console.WriteLine("The debug function allows you to add or remove items from either inventory.");
+            while (debugInput != "0")
+            {
+                Console.WriteLine("\nWhat inventory are you modifying?");
+                Console.WriteLine("0: Exit");
+                Console.WriteLine("1: " + userName);
+                Console.WriteLine("2: Merchant");
+                debugInput = Console.ReadLine();
+                if (debugInput == "1")
+                {
+                    Console.WriteLine("\nWhat are you doing?");
+                    Console.WriteLine("0: Exit");
+                    Console.WriteLine("1: Add");
+                    Console.WriteLine("2: Remove");
+                    debugInput = Console.ReadLine();
+                    if (debugInput == "1")
+                    {
+                        Console.WriteLine("What are you adding?");
+                        for (int i = 0; i < fullInventory.Length; i++)
+                        {
+                            Console.WriteLine((i + 1) + ": " + fullInventory[i].GetName());
+                        }
+                        debugInput = Console.ReadLine();
+                    }
+                    else if (debugInput == "2")
+                    {
+                        Console.WriteLine("What are you removing?");
+                        for (int i = 0; i < playerInventory.Length; i++)
+                        {
+                            Console.WriteLine((i + 1) + ": " + playerInventory[i].GetName());
+                        }
+                        debugInput = Console.ReadLine();
+                    }
+                }
+                else if (debugInput == "2")
+                {
+                    Console.WriteLine("\nWhat are you doing?");
+                    Console.WriteLine("0: Exit");
+                    Console.WriteLine("1: Add");
+                    Console.WriteLine("2: Remove");
+                    debugInput = Console.ReadLine();
+                    if (debugInput == "1")
+                    {
+                        Console.WriteLine("What are you adding?");
+                        for (int i = 0; i < fullInventory.Length; i++)
+                        {
+                            Console.WriteLine((i + 1) + ": " + fullInventory[i].GetName());
+                        }
+                        debugInput = Console.ReadLine();
+                    }
+                    else if (debugInput == "2")
+                    {
+                        Console.WriteLine("What are you removing?");
+                        for (int i = 0; i < storeInventory.Length; i++)
+                        {
+                            Console.WriteLine((i + 1) + ": " + storeInventory[i].GetName());
+                        }
+                        debugInput = Console.ReadLine();
+                    }
+                }
+            }
         }
     }
 }
