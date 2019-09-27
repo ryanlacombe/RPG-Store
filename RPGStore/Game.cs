@@ -327,16 +327,40 @@ namespace RPGStore
         }
         public void Save(string path1, string path2, string userName)
         {
-            //Creates a Writer for file at path1
+            //Creates a writer for file at path1
             StreamWriter writer = File.CreateText(path1);
             //Denotes the player
-            writer.WriteLine(userName);
-            //Creates loop for player
+            writer.WriteLine(userName + ":");
+            //Creates loop to save player inventory
+            foreach (Item p in playerInventory)
+            {
+                p.SaveInventories(writer);
+            }
+            writer.WriteLine(playerFunds);
+            //Closes
+            writer.Close();
 
+            //Creates a writer for file at path2
+            StreamWriter writer2 = File.CreateText(path2);
+            //Denotes the merchant
+            writer2.WriteLine("Merchant:");
+            //Creates loop to save store inventory
+            foreach (Item u in storeInventory)
+            {
+                u.SaveInventories(writer2);
+            }
+            writer2.WriteLine(shopFunds);
+            //Closes
+            writer2.Close();
         }
         public void Load(string path1, string path2, string userName)
         {
-
+            //Checks if there's a file at path1
+            if (File.Exists(path1))
+            {
+                //Creates a reader for file at path1
+                StreamReader reader = File.OpenText(path1);
+            }
         }
         public void DevFunction()
         {

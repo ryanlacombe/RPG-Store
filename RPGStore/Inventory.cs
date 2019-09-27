@@ -133,7 +133,6 @@ namespace RPGStore
                             arrayToSort[e + 1] = swapValue;
                             sorted = false;
                         }
-                        Console.WriteLine(arrayToSort[e].GetStat());
                     }
                 }
             }
