@@ -8,6 +8,9 @@ namespace RPGStore
 {
     class Shop : Inventory
     {
+        //Creates a Random seed
+        Random rand = new Random();
+
         public Shop()
         {
             Item[] storeStock = { dagger, leather, heal };
@@ -51,6 +54,33 @@ namespace RPGStore
             }
             //Sets the current array to the new array
             storeList = middleList;
+        }
+        public void Chat()
+        {
+            int randChat;
+
+            randChat = rand.Next(0, 5);
+
+            if (randChat == 0)
+            {
+                Console.WriteLine("'There's been rumors of goblins taking over the old abondoned mine.'");
+            }
+            else if (randChat == 1)
+            {
+                Console.WriteLine("'The local tavern: The Dancing Pony, serves the best drinks in the land!'");
+            }
+            else if (randChat == 2)
+            {
+                Console.WriteLine("'You should see my brother. He's a weapons trainer.'");
+            }
+            else if (randChat == 3)
+            {
+                Console.WriteLine("'Are we talking all day or are you trading something?'");
+            }
+            else if (randChat == 4)
+            {
+                Console.WriteLine("'Hey, you. You're finally awake.'");
+            }
         }
     }
 }

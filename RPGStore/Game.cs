@@ -8,12 +8,9 @@ using System.IO;
 namespace RPGStore
 {
     class Game
-    {
-        //Creates a Random seed
-        Random rand = new Random();
+    {        
         //Creates bool variables for while loops
-        bool inStore = true;
-        bool sorted = false;
+        bool inStore = true;        
         //Creates the Inventory Arrays
         static protected Item[] playerInventory;
         static protected Item[] storeInventory;
@@ -24,6 +21,7 @@ namespace RPGStore
         //Creates instance of the Inventory Classes
         Player player = new Player();
         Shop shop = new Shop();
+        Inventory inventory = new Inventory();
         
         //Creates other variables
         protected string itemStat;
@@ -32,6 +30,7 @@ namespace RPGStore
         {
             playerInventory = player.playerList;            
             storeInventory = shop.storeList;
+            fullInventory = inventory.fullList;
             playerFunds = 100;
             shopFunds = 200;
         }
@@ -42,6 +41,10 @@ namespace RPGStore
         public int GetShopFunds()
         {
             return shopFunds;
+        }
+        public string GetItemStatName()
+        {
+            return itemStat;
         }
         public void Menu(string userName)
         {
@@ -60,7 +63,22 @@ namespace RPGStore
 
                 if (input == "0")
                 {
-                    inStore = false;
+                    //Asks User for input
+                    Console.WriteLine("\nWould you like to save?");
+                    Console.WriteLine("1: Yes");
+                    Console.WriteLine("2: No");
+                    //Gets User's input
+                    input = Console.ReadLine();
+                    //Checks the input
+                    if (input == "1")
+                    {
+                        Save("player", "store", userName);
+                        inStore = false;
+                    }
+                    else if (input == "2")
+                    {
+                        inStore = false;
+                    }
                 }
                 else if (input == "1")
                 {
@@ -94,22 +112,22 @@ namespace RPGStore
                         if (input == "1")
                         {
                             itemStat = "Damage";
-                            InspectPlayerInventory();
+                            InspectInventory(playerInventory);
                         }
                         else if (input == "2")
                         {
                             itemStat = "Defense";
-                            InspectPlayerInventory();
+                            InspectInventory(playerInventory);
                         }
                         else if (input == "3")
                         {
                             itemStat = "Buff";
-                            InspectPlayerInventory();
+                            InspectInventory(playerInventory);
                         }
                         else if (input == "4")
                         {
                             itemStat = "Stat";
-                            InspectPlayerInventory();
+                            InspectInventory(playerInventory);
                         }
                     }
                     else if (input == "2")
@@ -123,22 +141,22 @@ namespace RPGStore
                         if (input == "1")
                         {
                             itemStat = "Damage";
-                            InspectStoreInventory();
+                            InspectInventory(storeInventory);
                         }
                         else if (input == "2")
                         {
                             itemStat = "Defense";
-                            InspectStoreInventory();
+                            InspectInventory(storeInventory);
                         }
                         else if (input == "3")
                         {
                             itemStat = "Buff";
-                            InspectStoreInventory();
+                            InspectInventory(storeInventory);
                         }
                         else if (input == "4")
                         {
                             itemStat = "Stat";
-                            InspectStoreInventory();
+                            InspectInventory(storeInventory);
                         }
                     }
                 }
@@ -152,11 +170,11 @@ namespace RPGStore
                 }
                 else if (input == "5")
                 {
-                    Chat();
+                    shop.Chat();
                 }
                 else if (input == "9")
                 {
-
+                    DevFunction();
                 }
             }
         }
@@ -179,273 +197,54 @@ namespace RPGStore
                 Console.WriteLine((i + 1) + ": " + storeInventory[i].GetName());
             }
             Console.WriteLine("Funds: " + GetShopFunds());
-        }
-        public void Chat()
-        {
-            int randChat;
-
-            randChat = rand.Next(0, 5);
-
-            if (randChat == 0)
-            {
-                Console.WriteLine("'There's been rumors of goblins taking over the old abondoned mine.'");
-            }
-            else if (randChat == 1)
-            {
-                Console.WriteLine("'The local tavern: The Dancing Pony, serves the best drinks in the land!'");
-            }
-            else if (randChat == 2)
-            {
-                Console.WriteLine("'You should see my brother. He's a weapons trainer.'");
-            }
-            else if (randChat == 3)
-            {
-                Console.WriteLine("'Are we talking all day or are you trading something?'");
-            }
-            else if (randChat == 4)
-            {
-                Console.WriteLine("'Hey, you. You're finally awake.'");
-            }
-        }
-        public void PlayerSort(Item[] arrayToSort)
-        {
-            string sortInput;
-            int firstArgument;
-            int secondArgument;
-
-            //Aks User for specific sort function
-            Console.WriteLine("\nHow would you like to sort?");
-            Console.WriteLine("1: Alphabetical");
-            Console.WriteLine("2: Cost");
-            Console.WriteLine("3: " + itemStat);
-            sortInput = Console.ReadLine();
-            //Reads the User's input
-            if (sortInput == "1")
-            {
-                while (!sorted)
-                {
-                    for (int e = 0; e < arrayToSort.Length - 1; e++)
-                    {
-                        sorted = true;
-                        firstArgument = arrayToSort[e].GetAlphaID();
-                        secondArgument = arrayToSort[e + 1].GetAlphaID();
-                        if (firstArgument > secondArgument)
-                        {
-                            Item swapValue = arrayToSort[e];
-                            arrayToSort[e] = arrayToSort[e + 1];
-                            arrayToSort[e + 1] = swapValue;
-                            sorted = false;
-                        }
-                    }
-                }
-            }
-            else if (sortInput == "2")
-            {
-                while (!sorted)
-                {
-                    for (int e = 0; e < arrayToSort.Length - 1; e++)
-                    {
-                        sorted = true;
-                        firstArgument = arrayToSort[e].GetCost();
-                        secondArgument = arrayToSort[e + 1].GetCost();
-                        if (firstArgument > secondArgument)
-                        {
-                            Item swapValue = arrayToSort[e];
-                            arrayToSort[e] = arrayToSort[e + 1];
-                            arrayToSort[e + 1] = swapValue;
-                            sorted = false;
-                        }
-                    }
-                }
-            }
-            else if (sortInput == "3")
-            {
-                while (!sorted)
-                {
-                    sorted = true;
-                    for (int e = 0; e < arrayToSort.Length - 1; e++)
-                    {
-                        firstArgument = arrayToSort[e].GetStat();
-                        secondArgument = arrayToSort[e + 1].GetStat();
-                        if (firstArgument > secondArgument)
-                        {
-                            Item swapValue = arrayToSort[e];
-                            arrayToSort[e] = arrayToSort[e + 1];
-                            arrayToSort[e + 1] = swapValue;
-                            sorted = false;
-                        }
-                        Console.WriteLine(arrayToSort[e].GetStat());
-                    }
-                }
-            }
-        }
-        public void StoreSort(Item[] arrayToSort)
-        {
-            string sortInput;            
-            int firstArgument;
-            int secondArgument;
-
-            //Aks User for specific sort function
-            Console.WriteLine("\nHow would you like to sort?");
-            Console.WriteLine("1: Alphabetical");
-            Console.WriteLine("2: Cost");
-            Console.WriteLine("3: " + itemStat);
-            sortInput = Console.ReadLine();
-            //Reads the User's input
-            if (sortInput == "1")
-            {
-                while (!sorted)
-                {
-                    for (int e = 0; e < arrayToSort.Length - 1; e++)
-                    {
-                        sorted = true;
-                        firstArgument = arrayToSort[e].GetAlphaID();
-                        secondArgument = arrayToSort[e + 1].GetAlphaID();
-                        if (firstArgument > secondArgument)
-                        {
-                            Item swapValue = arrayToSort[e];
-                            arrayToSort[e] = arrayToSort[e + 1];
-                            arrayToSort[e + 1] = swapValue;
-                            sorted = false;
-                        }
-                    }
-                }
-            }
-            else if (sortInput == "2")
-            {
-                while (!sorted)
-                {
-                    for (int e = 0; e < arrayToSort.Length - 1; e++)
-                    {
-                        sorted = true;
-                        firstArgument = arrayToSort[e].GetCost();
-                        secondArgument = arrayToSort[e + 1].GetCost();
-                        if (firstArgument > secondArgument)
-                        {
-                            Item swapValue = arrayToSort[e];
-                            arrayToSort[e] = arrayToSort[e + 1];
-                            arrayToSort[e + 1] = swapValue;
-                            sorted = false;
-                        }
-                    }
-                }
-            }
-            else if (sortInput == "3")
-            {
-                while (!sorted)
-                {
-                    for (int e = 0; e < arrayToSort.Length - 1; e++)
-                    {
-                        sorted = true;
-                        firstArgument = arrayToSort[e].GetStat();
-                        secondArgument = arrayToSort[e + 1].GetStat();
-                        if (firstArgument > secondArgument)
-                        {
-                            Item swapValue = arrayToSort[e];
-                            arrayToSort[e] = arrayToSort[e + 1];
-                            arrayToSort[e + 1] = swapValue;
-                            sorted = false;
-                        }
-                    }
-                }
-            }
-        }
-        public void InspectPlayerInventory()
+        }                
+        public void InspectInventory(Item[] arrayLists)
         {
             string inspectInput = "";
-            int i = 0;
 
             while (inspectInput != "0")
             {
                 Console.WriteLine("\nWhat are you doing?");
                 Console.WriteLine("0: Exit");
                 Console.WriteLine("1: Sort");
-                for (int o = 0; o < playerInventory.Length; o++)
+                for (int o = 0; o < arrayLists.Length; o++)
                 {
-                    if (itemStat == "Damage")
+                    if (itemStat == "Damage" && arrayLists[o].GetItemStatName() == "Damage")
                     {
-                        Console.WriteLine((o + 2) + ": " + playerInventory[o].GetName());
+                        Console.WriteLine((o + 2) + ": " + arrayLists[o].GetName());
                     }
-                    else if (itemStat == "Defense")
+                    else if (itemStat == "Defense" && arrayLists[o].GetItemStatName() == "Defense")
                     {
-
+                        Console.WriteLine((o + 2) + ": " + arrayLists[o].GetName());
                     }
-                    else if (itemStat == "Buff")
+                    else if (itemStat == "Buff" && arrayLists[o].GetItemStatName() == "Buff")
                     {
-
+                        Console.WriteLine((o + 2) + ": " + arrayLists[o].GetName());
                     }
                     else if (itemStat == "Stat")
                     {
-                        Console.WriteLine((o + 2) + ": " + playerInventory[o].GetName());
+                        Console.WriteLine((o + 2) + ": " + arrayLists[o].GetName());
                     }
                 }
                 inspectInput = Console.ReadLine();
                 if (inspectInput == "1")
                 {
-                    PlayerSort(playerInventory);
+                    inventory.Sort(arrayLists, itemStat);
                 }
-                for (int b = 0; b < playerInventory.Length; b++)
+                for (int b = 0; b < arrayLists.Length; b++)
                 {
                     if (Convert.ToInt32(inspectInput) == (b + 2))
                     {
                         Console.WriteLine("");
-                        Console.WriteLine(playerInventory[b].GetName() + ":");
-                        Console.WriteLine(itemStat + ": " + playerInventory[b].GetStat());
-                        Console.WriteLine("Cost: " + playerInventory[b].GetCost());
-                        Console.WriteLine(playerInventory[b].GetDescription());
+                        Console.WriteLine(arrayLists[b].GetName() + ":");
+                        Console.WriteLine(itemStat + ": " + arrayLists[b].GetStat());
+                        Console.WriteLine("Cost: " + arrayLists[b].GetCost());
+                        Console.WriteLine(arrayLists[b].GetDescription());
                         inspectInput = "0";
                     }
                 }
             }
-        }
-        public void InspectStoreInventory()
-        {
-            string inspectInput = "";
-            int i = 0;
-
-            while (inspectInput != "0")
-            {
-                Console.WriteLine("\nWhat are you doing?");
-                Console.WriteLine("0: Exit");
-                Console.WriteLine("1: Sort");
-                for (int o = 0; o < storeInventory.Length; o++)
-                {
-                    if (itemStat == "Damage")
-                    {
-
-                    }
-                    else if (itemStat == "Defense")
-                    {
-
-                    }
-                    else if (itemStat == "Buff")
-                    {
-
-                    }
-                    else if (itemStat == "Stat")
-                    {
-                        Console.WriteLine((o + 2) + ": " + storeInventory[o].GetName());
-                    }
-                }
-                inspectInput = Convert.ToString(Console.ReadLine());
-                if (inspectInput == "1")
-                {
-                    StoreSort(storeInventory);
-                }
-                for (int b = 0; b < storeInventory.Length; b++)
-                {
-                    if (Convert.ToInt32(inspectInput) == (b + 2))
-                    {
-                        Console.WriteLine("");
-                        Console.WriteLine(storeInventory[b].GetName() + ":");
-                        Console.WriteLine(itemStat + ": " + storeInventory[b].GetStat());
-                        Console.WriteLine("Cost: " + storeInventory[b].GetCost());
-                        Console.WriteLine(storeInventory[b].GetDescription());
-                        inspectInput = "0";
-                    }
-                }
-            }
-        }
+        }        
         public void Buy()
         {
             //Creates variables for function
@@ -525,6 +324,23 @@ namespace RPGStore
                     }
                 }
             }
+        }
+        public void Save(string path1, string path2, string userName)
+        {
+            //Creates a Writer for file at path1
+            StreamWriter writer = File.CreateText(path1);
+            //Denotes the player
+            writer.WriteLine(userName);
+            //Creates loop for player
+
+        }
+        public void Load(string path1, string path2, string userName)
+        {
+
+        }
+        public void DevFunction()
+        {
+
         }
     }
 }

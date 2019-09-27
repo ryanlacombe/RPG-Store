@@ -12,6 +12,7 @@ namespace RPGStore
         protected string itemName;
         protected string itemDescription;
         protected int itemStat;
+        protected string itemStatName;
         protected int alphaID;
         
 
@@ -35,6 +36,9 @@ namespace RPGStore
         {
             return alphaID;
         }
-        
+        public virtual string GetItemStatName()
+        {
+            return itemStatName;
+        }        
     }
 }
