@@ -8,7 +8,25 @@ namespace RPGStore
 {
     class Inventory
     {
-        public void Remove(Item[] arrayLists, int index)
+        public Item[] playerList;
+        public Item[] storeList;
+        public Item[] fullList;
+        //Creates Weapons
+        protected Weapons sword = new Weapons("Sword", 10, 15, 2, "This is a test description");
+        protected Weapons dagger = new Weapons("Dagger", 4, 6, 1, "Temp Desc");
+
+        //Creates Armors
+        protected Armor leather = new Armor("Leather", 10, 15, 1, "This is a test description");
+
+        //Creates Potions
+        protected Potions heal = new Potions("Heal", 0, 10, 4, "This is a test description");
+
+        public Inventory()
+        {
+            Item[] fullStock = { sword, leather, dagger, heal };
+            fullList = fullStock;
+        }
+        public virtual void Remove(Item[] arrayLists, int index)
         {
             //Creates new array
             Item[] newList = new Item[arrayLists.Length - 1];
@@ -25,7 +43,7 @@ namespace RPGStore
             //Set the current array to the new array
             arrayLists = newList;
         }
-        public void Add(Item[] arrayLists, int index)
+        public virtual void Add(Item[] arrayLists, Item index)
         {
             //Creates new array
             Item[] middleList = new Item[arrayLists.Length + 1];
@@ -40,7 +58,7 @@ namespace RPGStore
                 }
                 //Adds the index to the end of the array
                 int arrayEnd = arrayLists.Length;
-                middleList[arrayEnd] = arrayLists[index];
+                middleList[arrayEnd] = index;
             }
             //Sets the current array to the new array
             arrayLists = middleList;

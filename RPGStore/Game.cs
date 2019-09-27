@@ -7,7 +7,7 @@ using System.IO;
 
 namespace RPGStore
 {
-    class Game : Inventory
+    class Game
     {
         //Creates a Random seed
         Random rand = new Random();
@@ -15,30 +15,23 @@ namespace RPGStore
         bool inStore = true;
         bool sorted = false;
         //Creates the Inventory Arrays
-        protected Item[] playerInventory;
-        protected Item[] storeInventory;
+        static protected Item[] playerInventory;
+        static protected Item[] storeInventory;
+        static private Item[] fullInventory;
         //Creates fund variables
         protected int playerFunds;
         protected int shopFunds;
-        //Creates Weapons
-        protected Weapons sword = new Weapons("Sword", 10, 15, 2, "This is a test description");
-        protected Weapons dagger = new Weapons("Dagger", 4, 6, 1, "Temp Desc");
-
-        //Creates Armors
-        protected Armor leather = new Armor("Leather", 10, 15, 1, "This is a test description");
-
-        //Creates Potions
-        protected Potions heal = new Potions("Heal", 0, 10, 4, "This is a test description");
-
+        //Creates instance of the Inventory Classes
+        Player player = new Player();
+        Shop shop = new Shop();
+        
         //Creates other variables
         protected string itemStat;
 
         public Game()
         {
-            Item[] playerStock = { sword, dagger, leather, heal };
-            playerInventory = playerStock;
-            Item[] storeStock = { dagger, leather, heal };
-            storeInventory = storeStock;
+            playerInventory = player.playerList;            
+            storeInventory = shop.storeList;
             playerFunds = 100;
             shopFunds = 200;
         }
@@ -83,8 +76,6 @@ namespace RPGStore
                     {
                         ShopList();
                     }
-
-                    inStore = true;
                 }
                 else if (input == "2")
                 {
@@ -150,17 +141,14 @@ namespace RPGStore
                             InspectStoreInventory();
                         }
                     }
-
-                    inStore = true;
                 }
                 else if (input == "3")
                 {
-                    Buy(playerInventory, storeInventory);
-                    inStore = true;
+                    Buy();                    
                 }
                 else if (input == "4")
                 {
-
+                    Sell();
                 }
                 else if (input == "5")
                 {
@@ -377,22 +365,18 @@ namespace RPGStore
                     if (itemStat == "Damage")
                     {
                         Console.WriteLine((o + 2) + ": " + playerInventory[o].GetName());
-                        i = o;
                     }
                     else if (itemStat == "Defense")
                     {
 
-                        i = o;
                     }
                     else if (itemStat == "Buff")
                     {
 
-                        i = o;
                     }
                     else if (itemStat == "Stat")
                     {
                         Console.WriteLine((o + 2) + ": " + playerInventory[o].GetName());
-                        i = (o - 2);
                     }
                 }
                 inspectInput = Console.ReadLine();
@@ -429,22 +413,18 @@ namespace RPGStore
                     if (itemStat == "Damage")
                     {
 
-                        i = o;
                     }
                     else if (itemStat == "Defense")
                     {
 
-                        i = o;
                     }
                     else if (itemStat == "Buff")
                     {
 
-                        i = o;
                     }
                     else if (itemStat == "Stat")
                     {
                         Console.WriteLine((o + 2) + ": " + storeInventory[o].GetName());
-                        i = o;
                     }
                 }
                 inspectInput = Convert.ToString(Console.ReadLine());
@@ -466,7 +446,7 @@ namespace RPGStore
                 }
             }
         }
-        public void Buy(Item[] playerArray, Item[] storeArray)
+        public void Buy()
         {
             //Creates variables for function
             string buyInput = "";
@@ -478,28 +458,70 @@ namespace RPGStore
                 //Asks the User for input
                 Console.WriteLine("\nWhat are you purchasing?");
                 Console.WriteLine("0: Exit");
-                for (int i = 0; i < storeArray.Length; i++)
+                for (int i = 0; i < storeInventory.Length; i++)
                 {
-                    Console.WriteLine((i + 1) + ": " + storeArray[i].GetName());
+                    Console.WriteLine((i + 1) + ": " + storeInventory[i].GetName());
                 }
                 //Gets User's input
                 buyInput = Console.ReadLine();
                 //Checks the input and reacts accordingly
-                for (int o = 0; o < storeArray.Length; o++)
+                for (int o = 0; o < storeInventory.Length; o++)
                 {
                     if (Convert.ToInt32(buyInput) == (o + 1))
                     {
                         Console.WriteLine("");
-                        Console.WriteLine("You buy the " + storeArray[o].GetName() + " for " + storeArray[o].GetCost() + " gold.");
-                        Add(playerArray, o);
-                        Remove(storeArray, o);
-                        playerFunds = (userFunds - storeArray[o].GetCost());
-                        shopFunds = (storeFunds + storeArray[o].GetCost());
+                        Console.WriteLine("You buy the " + storeInventory[o].GetName() + " for " + storeInventory[o].GetCost() + " gold.");
+                        player.Add(playerInventory, storeInventory[o]);
+                        playerInventory = player.playerList;
+                        playerFunds = (userFunds - storeInventory[o].GetCost());
+                        shopFunds = (storeFunds + storeInventory[o].GetCost());
+                        shop.Remove(storeInventory, o);
+                        storeInventory = shop.storeList;                        
                         Console.WriteLine("Your funds are now: " + GetPlayerFunds());
                         //Exits the Buy function
                         Console.WriteLine("\nPress any key to continue.");
                         Console.ReadKey();
                         buyInput = "0";
+                    }
+                }
+            }
+        }
+        public void Sell()
+        {
+            //Creates variables for function
+            string sellInput = "";
+            int userFunds = GetPlayerFunds();
+            int storeFunds = GetShopFunds();
+
+            while (sellInput != "0")
+            {
+                //Asks the User for input
+                Console.WriteLine("\nWhat are you selling?");
+                Console.WriteLine("0: Exit");
+                for (int i = 0; i < playerInventory.Length; i++)
+                {
+                    Console.WriteLine((i + 1) + ": " + playerInventory[i].GetName());
+                }
+                //Gets User's input
+                sellInput = Console.ReadLine();
+                //Checks the input and reacts accordingly
+                for (int o = 0; o < storeInventory.Length; o++)
+                {
+                    if (Convert.ToInt32(sellInput) == (o + 1))
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("You sell the " + playerInventory[o].GetName() + " for " + playerInventory[o].GetCost() + " gold.");
+                        shop.Add(storeInventory, playerInventory[o]);
+                        storeInventory = shop.storeList;
+                        playerFunds = (userFunds + playerInventory[o].GetCost());
+                        shopFunds = (storeFunds - playerInventory[o].GetCost());
+                        player.Remove(playerInventory, o);
+                        playerInventory = player.playerList;
+                        Console.WriteLine("Your funds are now: " + GetPlayerFunds());
+                        //Exits the Buy function
+                        Console.WriteLine("\nPress any key to continue.");
+                        Console.ReadKey();
+                        sellInput = "0";
                     }
                 }
             }
