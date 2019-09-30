@@ -15,6 +15,7 @@ namespace RPGStore
         static protected Item[] playerInventory;
         static protected Item[] storeInventory;
         static private Item[] fullInventory;
+        static private Item[] emptyInventory;
         //Creates fund variables
         protected int playerFunds;
         protected int shopFunds;
@@ -25,6 +26,7 @@ namespace RPGStore
         
         //Creates other variables
         protected string itemStat;
+        private string _nullName;
 
         public Game()
         {
@@ -227,6 +229,7 @@ namespace RPGStore
                     }
                 }
                 inspectInput = Console.ReadLine();
+
                 if (inspectInput == "1")
                 {
                     inventory.Sort(arrayLists, itemStat);
@@ -330,13 +333,15 @@ namespace RPGStore
             //Creates a writer for file at path1
             StreamWriter writer = File.CreateText(path1);
             //Denotes the player
-            writer.WriteLine(userName + ":");
+            writer.WriteLine(userName);
+            //Saves the player's funds
+            writer.WriteLine(playerFunds);
             //Creates loop to save player inventory
             foreach (Item p in playerInventory)
             {
                 p.SaveInventories(writer);
             }
-            writer.WriteLine(playerFunds);
+            
             //Closes
             writer.Close();
 
@@ -344,22 +349,52 @@ namespace RPGStore
             StreamWriter writer2 = File.CreateText(path2);
             //Denotes the merchant
             writer2.WriteLine("Merchant:");
+            //Saves the shop's funds
+            writer2.WriteLine(shopFunds);
             //Creates loop to save store inventory
             foreach (Item u in storeInventory)
             {
                 u.SaveInventories(writer2);
             }
-            writer2.WriteLine(shopFunds);
             //Closes
             writer2.Close();
         }
         public void Load(string path1, string path2, string userName)
         {
-            //Checks if there's a file at path1
-            if (File.Exists(path1))
+            //Checks if there's a file at path1 and path2
+            if (File.Exists(path1) && File.Exists(path2))
             {
                 //Creates a reader for file at path1
                 StreamReader reader = File.OpenText(path1);
+                //Sets the player's name from file
+                userName = reader.ReadLine();
+                //Loads the player's funds
+                playerFunds = Convert.ToInt32(reader.ReadLine());
+                //Creates loop to load and place items into the player inventory
+                foreach (Item p in playerInventory)
+                {
+                    p.LoadInventories(reader);
+                }
+                //Closes reader
+                reader.Close();
+
+                //Creates a reader for file at path2
+                StreamReader reader2 = File.OpenText(path2);
+                //Skips over first line written in store save
+                _nullName = reader2.ReadLine();
+                //Loads the store's funds
+                shopFunds = Convert.ToInt32(reader2.ReadLine());
+                //Creates loop to load and place items into the store inventory
+                foreach (Item u in storeInventory)
+                {
+                    u.LoadInventories(reader2);
+                }                               
+                //Closes
+                reader2.Close();
+            }
+            else
+            {
+                Console.WriteLine("No saves found.");
             }
         }
         public void DevFunction(string userName)
@@ -390,6 +425,21 @@ namespace RPGStore
                             Console.WriteLine((i + 1) + ": " + fullInventory[i].GetName());
                         }
                         debugInput = Console.ReadLine();
+                        //Checks the input and reacts accordingly
+                        for (int o = 0; o < fullInventory.Length; o++)
+                        {
+                            if (Convert.ToInt32(debugInput) == (o + 1))
+                            {
+                                Console.WriteLine("");
+                                Console.WriteLine("You add the " + fullInventory[o].GetName() + " to your inventory.");
+                                player.Add(playerInventory, fullInventory[o]);
+                                playerInventory = player.playerList;
+                                //Exits the Add function
+                                Console.WriteLine("\nPress any key to continue.");
+                                Console.ReadKey();
+                                debugInput = "0";
+                            }
+                        }
                     }
                     else if (debugInput == "2")
                     {
@@ -399,6 +449,21 @@ namespace RPGStore
                             Console.WriteLine((i + 1) + ": " + playerInventory[i].GetName());
                         }
                         debugInput = Console.ReadLine();
+                        //Checks the input and reacts accordingly
+                        for (int o = 0; o < playerInventory.Length; o++)
+                        {
+                            if (Convert.ToInt32(debugInput) == (o + 1))
+                            {
+                                Console.WriteLine("");
+                                Console.WriteLine("You remove the " + fullInventory[o].GetName() + " from your inventory.");
+                                player.Remove(playerInventory, o);
+                                playerInventory = player.playerList;
+                                //Exits the Remove function
+                                Console.WriteLine("\nPress any key to continue.");
+                                Console.ReadKey();
+                                debugInput = "0";
+                            }
+                        }
                     }
                 }
                 else if (debugInput == "2")
@@ -416,6 +481,21 @@ namespace RPGStore
                             Console.WriteLine((i + 1) + ": " + fullInventory[i].GetName());
                         }
                         debugInput = Console.ReadLine();
+                        //Checks the input and reacts accordingly
+                        for (int o = 0; o < fullInventory.Length; o++)
+                        {
+                            if (Convert.ToInt32(debugInput) == (o + 1))
+                            {
+                                Console.WriteLine("");
+                                Console.WriteLine("You add the " + fullInventory[o].GetName() + " to the store's inventory.");
+                                shop.Add(storeInventory, fullInventory[o]);
+                                storeInventory = shop.storeList;
+                                //Exits the Add function
+                                Console.WriteLine("\nPress any key to continue.");
+                                Console.ReadKey();
+                                debugInput = "0";
+                            }
+                        }
                     }
                     else if (debugInput == "2")
                     {
@@ -425,6 +505,21 @@ namespace RPGStore
                             Console.WriteLine((i + 1) + ": " + storeInventory[i].GetName());
                         }
                         debugInput = Console.ReadLine();
+                        //Checks the input and reacts accordingly
+                        for (int o = 0; o < playerInventory.Length; o++)
+                        {
+                            if (Convert.ToInt32(debugInput) == (o + 1))
+                            {
+                                Console.WriteLine("");
+                                Console.WriteLine("You remove the " + storeInventory[o].GetName() + " from the store's inventory.");
+                                shop.Remove(storeInventory, o);
+                                storeInventory = shop.storeList;
+                                //Exits the Remove function
+                                Console.WriteLine("\nPress any key to continue.");
+                                Console.ReadKey();
+                                debugInput = "0";
+                            }
+                        }
                     }
                 }
             }

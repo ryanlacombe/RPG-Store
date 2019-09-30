@@ -14,6 +14,8 @@ namespace RPGStore
         public Item[] fullList;
         //Creats bool variable for loop
         bool sorted = false;
+        //Creates other variables
+        protected int start = 0;
         //Creates Weapons
         protected Weapons sword = new Weapons("Sword", 10, 15, 18, "Damage", "This is a test description");
         protected Weapons dagger = new Weapons("Dagger", 4, 6, 4, "Damage", "Temp Desc");
@@ -71,6 +73,8 @@ namespace RPGStore
             string sortInput;
             int firstArgument;
             int secondArgument;
+            int unpass = arrayToSort.Length - 1;
+            sorted = false;
 
             //Aks User for specific sort function
             Console.WriteLine("\nHow would you like to sort?");
@@ -83,9 +87,23 @@ namespace RPGStore
             {
                 while (!sorted)
                 {
-                    for (int e = 0; e < arrayToSort.Length - 1; e++)
+                    sorted = true;
+                    for (int r = unpass; r > start; r--)
                     {
-                        sorted = true;
+                        firstArgument = arrayToSort[r - 1].GetAlphaID();
+                        secondArgument = arrayToSort[r].GetAlphaID();
+                        if (firstArgument > secondArgument)
+                        {
+                            Item swapValue = arrayToSort[r - 1];
+                            arrayToSort[r - 1] = arrayToSort[r];
+                            arrayToSort[r] = swapValue;
+                            sorted = false;
+                        }
+                    }
+                    start++;
+                    for (int e = start; e < unpass; e++)
+                    {
+
                         firstArgument = arrayToSort[e].GetAlphaID();
                         secondArgument = arrayToSort[e + 1].GetAlphaID();
                         if (firstArgument > secondArgument)
@@ -96,6 +114,8 @@ namespace RPGStore
                             sorted = false;
                         }
                     }
+                    unpass--;
+                    
                 }
             }
             else if (sortInput == "2")

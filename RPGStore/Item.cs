@@ -15,6 +15,7 @@ namespace RPGStore
         protected int itemStat;
         protected string itemStatName;
         protected int alphaID;
+        protected string nullName;
 
 
         public string GetName()
@@ -74,6 +75,17 @@ namespace RPGStore
                 writer.WriteLine(GetItemStatName());
                 writer.WriteLine(GetDescription());
             }
+        }
+        public void LoadInventories(StreamReader reader)
+        {
+            //Loads the save state to place into passed in array
+            nullName = reader.ReadLine();
+            itemName = reader.ReadLine();
+            itemStat = Convert.ToInt32(reader.ReadLine());
+            itemCost = Convert.ToInt32(reader.ReadLine());
+            alphaID = Convert.ToInt32(reader.ReadLine());
+            itemStatName = reader.ReadLine();
+            itemDescription = reader.ReadLine();
         }
     }
 }
