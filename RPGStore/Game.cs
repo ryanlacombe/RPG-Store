@@ -375,19 +375,21 @@ namespace RPGStore
                 //Loads the array's length
                 arrayLength = Convert.ToInt32(reader.ReadLine());
                 Item[] emptyArray1 = new Item[arrayLength];
-                playerInventory = emptyArray1;
+                for (int i = 0; i < emptyArray1.Length - 1; i++)
+                {
+                    emptyArray1[i] = playerInventory[i];
+                    emptyArray1[arrayLength - 1] = new Weapons("null", 0, 0, 0, "null", "null");
+                }
                 //Sets the player's name from file
                 userName = reader.ReadLine();
                 //Loads the player's funds
                 playerFunds = Convert.ToInt32(reader.ReadLine());
                 //Creates loop to load and place items into the player inventory
-                foreach (Item p in playerInventory)
+                foreach (Item p in emptyArray1)
                 {
-                    if ( p is Item)
-                    {
-                        p.LoadInventories(reader);
-                    }
+                    p.LoadInventories(reader);                   
                 }
+                playerInventory = emptyArray1;
                 //Closes reader
                 reader.Close();
 
