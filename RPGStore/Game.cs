@@ -15,7 +15,6 @@ namespace RPGStore
         static protected Item[] playerInventory;
         static protected Item[] storeInventory;
         static private Item[] fullInventory;
-        static private Item[] emptyInventory;
         //Creates fund variables
         protected int playerFunds;
         protected int shopFunds;
@@ -332,6 +331,8 @@ namespace RPGStore
         {
             //Creates a writer for file at path1
             StreamWriter writer = File.CreateText(path1);
+            //Saves the length of current array
+            writer.WriteLine(playerInventory.Length);
             //Denotes the player
             writer.WriteLine(userName);
             //Saves the player's funds
@@ -347,6 +348,8 @@ namespace RPGStore
 
             //Creates a writer for file at path2
             StreamWriter writer2 = File.CreateText(path2);
+            //Saves the length of current array
+            writer2.WriteLine(storeInventory.Length);
             //Denotes the merchant
             writer2.WriteLine("Merchant:");
             //Saves the shop's funds
@@ -361,11 +364,18 @@ namespace RPGStore
         }
         public void Load(string path1, string path2, string userName)
         {
+            //Creates a variable for array length
+            int arrayLength = 0;            
+
             //Checks if there's a file at path1 and path2
             if (File.Exists(path1) && File.Exists(path2))
             {
                 //Creates a reader for file at path1
                 StreamReader reader = File.OpenText(path1);
+                //Loads the array's length
+                arrayLength = Convert.ToInt32(reader.ReadLine());
+                Item[] emptyArray1 = new Item[arrayLength];
+                playerInventory = emptyArray1;
                 //Sets the player's name from file
                 userName = reader.ReadLine();
                 //Loads the player's funds
@@ -373,22 +383,34 @@ namespace RPGStore
                 //Creates loop to load and place items into the player inventory
                 foreach (Item p in playerInventory)
                 {
-                    p.LoadInventories(reader);
+                    if ( p is Item)
+                    {
+                        p.LoadInventories(reader);
+                    }
                 }
                 //Closes reader
                 reader.Close();
 
                 //Creates a reader for file at path2
                 StreamReader reader2 = File.OpenText(path2);
+                //Loads the array's length
+                arrayLength = Convert.ToInt32(reader2.ReadLine());
+                Item[] emptyArray2 = new Item[arrayLength];
+                //Sets current array to store's inventory
+                storeInventory = emptyArray2;
                 //Skips over first line written in store save
-                _nullName = reader2.ReadLine();
+                _nullName = reader2.ReadLine();                
                 //Loads the store's funds
                 shopFunds = Convert.ToInt32(reader2.ReadLine());
                 //Creates loop to load and place items into the store inventory
                 foreach (Item u in storeInventory)
                 {
-                    u.LoadInventories(reader2);
-                }                               
+                    if (u is Item)
+                    {
+                        u.LoadInventories(reader2);
+                    }
+                }
+               
                 //Closes
                 reader2.Close();
             }

@@ -27,10 +27,6 @@ namespace RPGStore
                 Console.WriteLine("Welcome! What is your name?");
                 playerName = Console.ReadLine();
             }
-
-            Console.WriteLine("Welcome! What is your name?");
-            playerName = Console.ReadLine();
-
             
             game.Menu(playerName);
 
