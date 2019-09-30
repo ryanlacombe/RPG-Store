@@ -398,6 +398,11 @@ namespace RPGStore
                 //Loads the array's length
                 arrayLength = Convert.ToInt32(reader2.ReadLine());
                 Item[] emptyArray2 = new Item[arrayLength];
+                for (int i = 0; i < emptyArray2.Length - 1; i++)
+                {
+                    emptyArray2[i] = storeInventory[i];
+                    emptyArray2[arrayLength - 1] = new Weapons("null", 0, 0, 0, "null", "null");
+                }
                 //Sets current array to store's inventory
                 storeInventory = emptyArray2;
                 //Skips over first line written in store save
@@ -412,7 +417,7 @@ namespace RPGStore
                         u.LoadInventories(reader2);
                     }
                 }
-               
+                storeInventory = emptyArray2;
                 //Closes
                 reader2.Close();
             }
