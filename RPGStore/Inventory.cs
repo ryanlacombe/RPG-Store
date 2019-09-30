@@ -20,21 +20,28 @@ namespace RPGStore
         protected Weapons sword = new Weapons("Sword", 10, 15, 19, "Damage", "This is a test description");
         protected Weapons dagger = new Weapons("Dagger", 4, 6, 4, "Damage", "Temp Desc");
         protected Weapons staff = new Weapons("Staff", 3, 4, 19, "Damage", "Placeholder");
+        protected Weapons sbow = new Weapons("Short Bow", 5, 10, 19, "Damage", "Placeholder");
+        protected Weapons lbow = new Weapons("Long Bow", 15, 17, 12, "Damage", "Placeholder");
+        protected Weapons gsword = new Weapons("Greatsword", 25, 24, 7, "Damage", "Placeholder");
 
         //Creates Armors
         protected Armor leather = new Armor("Leather", 5, 15, 11, "Defense", "This is a test description");
         protected Armor chain = new Armor("Chainmail", 10, 20, 3, "Defense", "Placeholder");
         protected Armor plate = new Armor("Plate Armor", 20, 50, 16, "Defense", "Placeholder");
+        protected Armor scale = new Armor("Scalemail", 15, 27, 19, "Defense", "Placeholder");
+        protected Armor robe = new Armor("Robes", 3, 5, 18, "Defense", "Placeholder");
+        protected Armor clothes = new Armor("Clothing", 2, 2, 3, "Defense", "Placeholder");
 
         //Creates Potions
         protected Potions heal = new Potions("Heal", 0, 10, 8, "Buff", "This is a test description");
         protected Potions strength = new Potions("Strength Potion", 1, 14, 19, "Buff", "Placeholder");
-        protected Potions breath = new Potions("Water Breath Potion", 2, 22, 2, "Buff", "Placeholder");
+        protected Potions breath = new Potions("Water Breath Potion", 2, 22, 23, "Buff", "Placeholder");
         protected Potions walking = new Potions("Water Walking Potion", 3, 26, 23, "Buff", "placeholder");
+        protected Potions vision = new Potions("Night Vision Potion", 4, 18, 14, "Buff", "Placeholder");
 
         public Inventory()
         {
-            Item[] fullStock = { sword, leather, dagger, heal, staff, chain, strength, breath, plate, walking };
+            Item[] fullStock = { sword, leather, dagger, heal, staff, chain, strength, breath, plate, walking, scale, sbow, robe, vision, clothes, lbow, gsword };
             fullList = fullStock;
         }
         public virtual void Remove(Item[] arrayLists, int index)
