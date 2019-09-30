@@ -33,7 +33,7 @@ namespace RPGStore
         protected Armor clothes = new Armor("Clothing", 2, 2, 3, "Defense", "Placeholder");
 
         //Creates Potions
-        protected Potions heal = new Potions("Heal", 0, 10, 8, "Buff", "This is a test description");
+        protected Potions heal = new Potions("Healing Potion", 0, 10, 8, "Buff", "This is a test description");
         protected Potions strength = new Potions("Strength Potion", 1, 14, 19, "Buff", "Placeholder");
         protected Potions breath = new Potions("Water Breath Potion", 2, 22, 23, "Buff", "Placeholder");
         protected Potions walking = new Potions("Water Walking Potion", 3, 26, 23, "Buff", "placeholder");
