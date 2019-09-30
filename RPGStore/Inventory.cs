@@ -114,19 +114,32 @@ namespace RPGStore
                             sorted = false;
                         }
                     }
-                    unpass--;
-                    
+                    unpass--;                   
                 }
             }
             else if (sortInput == "2")
             {
                 while (!sorted)
                 {
-                    for (int e = 0; e < arrayToSort.Length - 1; e++)
+                    sorted = true;
+                    for (int r = unpass; r > start; r--)
                     {
-                        sorted = true;
-                        firstArgument = arrayToSort[e].GetCost();
-                        secondArgument = arrayToSort[e + 1].GetCost();
+                        firstArgument = arrayToSort[r - 1].GetAlphaID();
+                        secondArgument = arrayToSort[r].GetAlphaID();
+                        if (firstArgument > secondArgument)
+                        {
+                            Item swapValue = arrayToSort[r - 1];
+                            arrayToSort[r - 1] = arrayToSort[r];
+                            arrayToSort[r] = swapValue;
+                            sorted = false;
+                        }
+                    }
+                    start++;
+                    for (int e = start; e < unpass; e++)
+                    {
+
+                        firstArgument = arrayToSort[e].GetAlphaID();
+                        secondArgument = arrayToSort[e + 1].GetAlphaID();
                         if (firstArgument > secondArgument)
                         {
                             Item swapValue = arrayToSort[e];
@@ -135,6 +148,7 @@ namespace RPGStore
                             sorted = false;
                         }
                     }
+                    unpass--;
                 }
             }
             else if (sortInput == "3")
@@ -142,10 +156,24 @@ namespace RPGStore
                 while (!sorted)
                 {
                     sorted = true;
-                    for (int e = 0; e < arrayToSort.Length - 1; e++)
+                    for (int r = unpass; r > start; r--)
                     {
-                        firstArgument = arrayToSort[e].GetStat();
-                        secondArgument = arrayToSort[e + 1].GetStat();
+                        firstArgument = arrayToSort[r - 1].GetAlphaID();
+                        secondArgument = arrayToSort[r].GetAlphaID();
+                        if (firstArgument > secondArgument)
+                        {
+                            Item swapValue = arrayToSort[r - 1];
+                            arrayToSort[r - 1] = arrayToSort[r];
+                            arrayToSort[r] = swapValue;
+                            sorted = false;
+                        }
+                    }
+                    start++;
+                    for (int e = start; e < unpass; e++)
+                    {
+
+                        firstArgument = arrayToSort[e].GetAlphaID();
+                        secondArgument = arrayToSort[e + 1].GetAlphaID();
                         if (firstArgument > secondArgument)
                         {
                             Item swapValue = arrayToSort[e];
@@ -154,6 +182,7 @@ namespace RPGStore
                             sorted = false;
                         }
                     }
+                    unpass--;
                 }
             }
         }        
