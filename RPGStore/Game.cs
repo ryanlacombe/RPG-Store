@@ -515,6 +515,7 @@ namespace RPGStore
         {
             string debugInput = "";
 
+            //Outputs the User that they have activated the secret function
             Console.WriteLine("\nYou have activated the debug function.");
             Console.WriteLine("The debug function allows you to add or remove items from either inventory.");
             while (debugInput != "0")
