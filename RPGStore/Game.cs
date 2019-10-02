@@ -199,48 +199,139 @@ namespace RPGStore
         }                
         public void InspectInventory(Item[] arrayLists)
         {
+            //Creates variables for the function
             string inspectInput = "";
+            int menuNumber = 2;
+            //Creates empty Arrays to seperate items in class distinctions
+            Item[] weaponArray = new Item[0];
+            Item[] armorArray = new Item[0];
+            Item[] potionArray = new Item[0];
 
             while (inspectInput != "0")
             {
                 Console.WriteLine("\nWhat are you doing?");
                 Console.WriteLine("0: Exit");
                 Console.WriteLine("1: Sort");
-                for (int o = 0; o < arrayLists.Length; o++)
+                if (itemStat == "Damage")
                 {
-                    if (itemStat == "Damage" && arrayLists[o].GetItemStatName() == "Damage")
+                    for (int p = 0; p < arrayLists.Length; p++)
                     {
-                        Console.WriteLine((o + 2) + ": " + arrayLists[o].GetName());
+                        if (arrayLists[p].GetItemStatName() == "Damage")
+                        {
+                            player.Add(weaponArray, arrayLists[p]);
+                            weaponArray = player.playerList;                               
+                        }
                     }
-                    else if (itemStat == "Defense" && arrayLists[o].GetItemStatName() == "Defense")
+                    for (int h = 0; h < weaponArray.Length; h++)
                     {
-                        Console.WriteLine((o + 2) + ": " + arrayLists[o].GetName());
-                    }
-                    else if (itemStat == "Buff" && arrayLists[o].GetItemStatName() == "Buff")
-                    {
-                        Console.WriteLine((o + 2) + ": " + arrayLists[o].GetName());
-                    }
-                    else if (itemStat == "Stat")
-                    {
-                        Console.WriteLine((o + 2) + ": " + arrayLists[o].GetName());
+                        Console.WriteLine(menuNumber + ": " + weaponArray[h].GetName());
+                        menuNumber++;
                     }
                 }
+                else if (itemStat == "Defense")
+                {
+                    for (int p = 0; p < arrayLists.Length; p++)
+                    {
+                        if (arrayLists[p].GetItemStatName() == "Defense")
+                        {
+                            player.Add(armorArray, arrayLists[p]);
+                            armorArray = player.playerList;
+                        }
+                    }
+                    for (int h = 0; h < armorArray.Length; h++)
+                    {
+                        Console.WriteLine(menuNumber + ": " + armorArray[h].GetName());
+                        menuNumber++;
+                    }
+                }
+                else if (itemStat == "Buff")
+                {
+                    for (int p = 0; p < arrayLists.Length; p++)
+                    {
+                        if (arrayLists[p].GetItemStatName() == "Buff")
+                        {
+                            player.Add(potionArray, arrayLists[p]);
+                            potionArray = player.playerList;
+                        }
+                    }
+                    for (int h = 0; h < potionArray.Length; h++)
+                    {
+                        Console.WriteLine(menuNumber + ": " + potionArray[h].GetName());
+                        menuNumber++;
+                    }
+                }
+                else if (itemStat == "Stat")
+                {                    
+                    for (int h = 0; h < arrayLists.Length; h++)
+                    {
+                        Console.WriteLine(menuNumber + ": " + arrayLists[h].GetName());
+                        menuNumber++;
+                    }
+                }                
                 inspectInput = Console.ReadLine();
 
                 if (inspectInput == "1")
                 {
                     inventory.Sort(arrayLists, itemStat);
                 }
-                for (int b = 0; b < arrayLists.Length; b++)
+                if (itemStat == "Damage")
                 {
-                    if (Convert.ToInt32(inspectInput) == (b + 2))
+                    for (int b = 0; b < weaponArray.Length; b++)
                     {
-                        Console.WriteLine("");
-                        Console.WriteLine(arrayLists[b].GetName() + ":");
-                        Console.WriteLine(itemStat + ": " + arrayLists[b].GetStat());
-                        Console.WriteLine("Cost: " + arrayLists[b].GetCost());
-                        Console.WriteLine(arrayLists[b].GetDescription());
-                        inspectInput = "0";
+                        if (Convert.ToInt32(inspectInput) == (b + 2))
+                        {
+                            Console.WriteLine("");
+                            Console.WriteLine(weaponArray[b].GetName() + ":");
+                            Console.WriteLine(itemStat + ": " + weaponArray[b].GetStat());
+                            Console.WriteLine("Cost: " + weaponArray[b].GetCost());
+                            Console.WriteLine(weaponArray[b].GetDescription());
+                            inspectInput = "0";
+                        }
+                    }
+                }
+                else if (itemStat == "Defense")
+                {
+                    for (int b = 0; b < armorArray.Length; b++)
+                    {
+                        if (Convert.ToInt32(inspectInput) == (b + 2))
+                        {
+                            Console.WriteLine("");
+                            Console.WriteLine(armorArray[b].GetName() + ":");
+                            Console.WriteLine(itemStat + ": " + armorArray[b].GetStat());
+                            Console.WriteLine("Cost: " + armorArray[b].GetCost());
+                            Console.WriteLine(armorArray[b].GetDescription());
+                            inspectInput = "0";
+                        }
+                    }
+                }
+                else if (itemStat == "Buff")
+                {
+                    for (int b = 0; b < potionArray.Length; b++)
+                    {
+                        if (Convert.ToInt32(inspectInput) == (b + 2))
+                        {
+                            Console.WriteLine("");
+                            Console.WriteLine(potionArray[b].GetName() + ":");
+                            Console.WriteLine(itemStat + ": " + potionArray[b].GetStat());
+                            Console.WriteLine("Cost: " + potionArray[b].GetCost());
+                            Console.WriteLine(potionArray[b].GetDescription());
+                            inspectInput = "0";
+                        }
+                    }
+                }
+                else if (itemStat == "Stat")
+                {
+                    for (int b = 0; b < arrayLists.Length; b++)
+                    {
+                        if (Convert.ToInt32(inspectInput) == (b + 2))
+                        {
+                            Console.WriteLine("");
+                            Console.WriteLine(arrayLists[b].GetName() + ":");
+                            Console.WriteLine(itemStat + ": " + arrayLists[b].GetStat());
+                            Console.WriteLine("Cost: " + arrayLists[b].GetCost());
+                            Console.WriteLine(arrayLists[b].GetDescription());
+                            inspectInput = "0";
+                        }
                     }
                 }
             }

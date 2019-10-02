@@ -24,7 +24,7 @@ namespace RPGStore
         protected Weapons lbow = new Weapons("Long Bow", 15, 17, 12, "Damage", "A bow typically seen used by soldiers in warfare. Deadly at all ranges. Rather plain in details, but is highly customizable.");
         protected Weapons gsword = new Weapons("Greatsword", 25, 26, 7, "Damage", "A massive two-ganded, double edged blade. Very effective against cavalry. It has an alternating black and white leather grip.");
         protected Weapons spear = new Weapons("Spear", 13, 16, 19, "Damage", "A long wooden pole with a bladed point on one end. Typically used in hunting, it can be used two-handed or one-handed with a shield.");
-        protected Weapons lance = new Weapons("Lance", 18, 22, 12, "Damage", "A polearm typically used by calvalry, but can be used on foot. The short wooden grip gives way to a long tapered metal body that ends in a deadly, sharpened point.");
+        protected Weapons lance = new Weapons("Lance", 18, 22, 12, "Damage", "A polearm typically used by cavalry, but can be used on foot. The short wooden grip gives way to a long tapered metal body that ends in a deadly, sharpened point.");
         //Creates Armors
         protected Armor leather = new Armor("Leather Armor", 5, 15, 11, "Defense", "A simple set of brown oiled leather gear. Includes a chestpiece, boots, and leggings.");
         protected Armor chain = new Armor("Chainmail", 10, 20, 3, "Defense", "A set of chainmail to be placed under clothing or lighter armor. Includes a chestpiece with long sleeves.");
