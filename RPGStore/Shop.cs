@@ -57,8 +57,9 @@ namespace RPGStore
         }
         public void Chat()
         {
+            //Creates variable for the function
             int randChat;
-
+            //Sets the range for the random selection
             randChat = rand.Next(0, 5);
 
             if (randChat == 0)
