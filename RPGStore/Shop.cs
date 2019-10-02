@@ -13,7 +13,7 @@ namespace RPGStore
 
         public Shop()
         {
-            Item[] storeStock = { dagger, chain, heal, breath, walking, plate, staff };
+            Item[] storeStock = { dagger, chain, heal, heal, breath, walking, plate, staff, lbow, robe, spear, lance, leather, silk, clothes, gsword, scale, hunting, hunting };
             storeList = storeStock;
         }
         public override void Remove(Item[] arrayLists, int index)

@@ -17,7 +17,6 @@ namespace RPGStore
         protected int alphaID;
         protected string nullName;
 
-
         public string GetName()
         {
             return itemName;
