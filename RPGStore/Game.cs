@@ -21,19 +21,17 @@ namespace RPGStore
         //Creates instance of the Inventory Classes
         Player player = new Player();
         Shop shop = new Shop();
-        Inventory inventory = new Inventory();
-        
+        Inventory inventory = new Inventory();        
         //Creates other variables
         protected string itemStat;
-        private string _nullName;
 
         public Game()
         {
             playerInventory = player.playerList;            
             storeInventory = shop.storeList;
             fullInventory = inventory.fullList;
-            playerFunds = 100;
-            shopFunds = 200;
+            playerFunds = 250;
+            shopFunds = 500;
         }
         public int GetPlayerFunds()
         {
@@ -73,7 +71,7 @@ namespace RPGStore
                     //Checks the input
                     if (input == "1")
                     {
-                        Save("player", "store", userName);
+                        Save("player", "store");
                         inStore = false;
                     }
                     else if (input == "2")
@@ -327,14 +325,12 @@ namespace RPGStore
                 }
             }
         }
-        public void Save(string path1, string path2, string userName)
+        public void Save(string path1, string path2)
         {
             //Creates a writer for file at path1
             StreamWriter writer = File.CreateText(path1);
             //Saves the length of current array
-            writer.WriteLine(playerInventory.Length);
-            //Denotes the player
-            writer.WriteLine(userName);
+            writer.WriteLine(playerInventory.Length);            
             //Saves the player's funds
             writer.WriteLine(playerFunds);
             //Creates loop to save player inventory
@@ -349,9 +345,7 @@ namespace RPGStore
             //Creates a writer for file at path2
             StreamWriter writer2 = File.CreateText(path2);
             //Saves the length of current array
-            writer2.WriteLine(storeInventory.Length);
-            //Denotes the merchant
-            writer2.WriteLine("Merchant:");
+            writer2.WriteLine(storeInventory.Length);            
             //Saves the shop's funds
             writer2.WriteLine(shopFunds);
             //Creates loop to save store inventory
@@ -362,7 +356,7 @@ namespace RPGStore
             //Closes
             writer2.Close();
         }
-        public void Load(string path1, string path2, string userName)
+        public void Load(string path1, string path2)
         {
             //Creates a variable for array length
             int arrayLength = 0;            
@@ -374,14 +368,13 @@ namespace RPGStore
                 StreamReader reader = File.OpenText(path1);
                 //Loads the array's length
                 arrayLength = Convert.ToInt32(reader.ReadLine());
+                //Creates and initializes an array to load path1 into
                 Item[] emptyArray1 = new Item[arrayLength];
                 for (int i = 0; i < emptyArray1.Length - 1; i++)
                 {
                     emptyArray1[i] = playerInventory[i];
                     emptyArray1[arrayLength - 1] = new Weapons("null", 0, 0, 0, "null", "null");
-                }
-                //Sets the player's name from file
-                userName = reader.ReadLine();
+                }                
                 //Loads the player's funds
                 playerFunds = Convert.ToInt32(reader.ReadLine());
                 //Creates loop to load and place items into the player inventory
@@ -389,6 +382,7 @@ namespace RPGStore
                 {
                     p.LoadInventories(reader);                   
                 }
+                //Sets the current array to the player's inventory
                 playerInventory = emptyArray1;
                 //Closes reader
                 reader.Close();
@@ -397,6 +391,7 @@ namespace RPGStore
                 StreamReader reader2 = File.OpenText(path2);
                 //Loads the array's length
                 arrayLength = Convert.ToInt32(reader2.ReadLine());
+                //Creates and initializes an array to load path2 into
                 Item[] emptyArray2 = new Item[arrayLength];
                 for (int i = 0; i < emptyArray2.Length - 1; i++)
                 {
@@ -404,9 +399,7 @@ namespace RPGStore
                     emptyArray2[arrayLength - 1] = new Weapons("null", 0, 0, 0, "null", "null");
                 }
                 //Sets current array to store's inventory
-                storeInventory = emptyArray2;
-                //Skips over first line written in store save
-                _nullName = reader2.ReadLine();                
+                storeInventory = emptyArray2;                                
                 //Loads the store's funds
                 shopFunds = Convert.ToInt32(reader2.ReadLine());
                 //Creates loop to load and place items into the store inventory
@@ -417,6 +410,7 @@ namespace RPGStore
                         u.LoadInventories(reader2);
                     }
                 }
+                //Set the current array to the store's inventory
                 storeInventory = emptyArray2;
                 //Closes
                 reader2.Close();

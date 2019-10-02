@@ -27,7 +27,7 @@ namespace RPGStore
                 if (input == "1")
                 {
                     //Loads the save file
-                    game.Load("player", "store", playerName);
+                    game.Load("player", "store");
 
                     //Prints out the intro to a loaded character
                     Console.WriteLine("\nYou find your way to the familiar sight of the Iron Horse store");
