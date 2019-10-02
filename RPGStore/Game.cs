@@ -51,6 +51,7 @@ namespace RPGStore
 
             while (inStore)
             {
+                //Prints out the Menu and its choices
                 Console.WriteLine("\nWhat will you do?");
                 Console.WriteLine("0: Exit");
                 Console.WriteLine("1: View");
@@ -81,27 +82,34 @@ namespace RPGStore
                 }
                 else if (input == "1")
                 {
+                    //Asks User for input
                     Console.WriteLine("\nWhich inventory are you viewing?");
                     Console.WriteLine("1: " + userName);
                     Console.WriteLine("2: Merchant");
                     input = Console.ReadLine();
                     if (input == "1")
                     {
+                        //Prints out the player's inventory
                         PlayerList();
                     }
                     else if (input == "2")
                     {
+                        //Prints out the store's inventory
                         ShopList();
                     }
                 }
                 else if (input == "2")
                 {
+                    //Asks User for input
                     Console.WriteLine("\nWhich inventory are you viewing?");
                     Console.WriteLine("1: " + userName);
                     Console.WriteLine("2: Merchant");
                     input = Console.ReadLine();
+
+                    //Checks if User's input was "1"
                     if (input == "1")
                     {
+                        //Asks User for input
                         Console.WriteLine("Which type of item are you inspecting?");
                         Console.WriteLine("1: Weapons");
                         Console.WriteLine("2: Armors");
@@ -110,27 +118,33 @@ namespace RPGStore
                         input = Console.ReadLine();
                         if (input == "1")
                         {
+                            //Prints out items of the Weapons Class
                             itemStat = "Damage";
                             InspectInventory(playerInventory);
                         }
                         else if (input == "2")
                         {
+                            //Prints out items of the Armor Class
                             itemStat = "Defense";
                             InspectInventory(playerInventory);
                         }
                         else if (input == "3")
                         {
+                            //Prints out items of the Potions Class
                             itemStat = "Buff";
                             InspectInventory(playerInventory);
                         }
                         else if (input == "4")
                         {
+                            //Prints out all items
                             itemStat = "Stat";
                             InspectInventory(playerInventory);
                         }
                     }
+                    //Checks if User's input was "2"
                     else if (input == "2")
                     {
+                        //Asks User for input
                         Console.WriteLine("Which type of item are you inspecting?");
                         Console.WriteLine("1: Weapons");
                         Console.WriteLine("2: Armors");
@@ -139,21 +153,25 @@ namespace RPGStore
                         input = Console.ReadLine();
                         if (input == "1")
                         {
+                            //Prints out items of the Weapons Class
                             itemStat = "Damage";
                             InspectInventory(storeInventory);
                         }
                         else if (input == "2")
                         {
+                            //Prints out items of the Armor Class
                             itemStat = "Defense";
                             InspectInventory(storeInventory);
                         }
                         else if (input == "3")
                         {
+                            //Prints out items of the Potions Class
                             itemStat = "Buff";
                             InspectInventory(storeInventory);
                         }
                         else if (input == "4")
                         {
+                            //Prints out all items
                             itemStat = "Stat";
                             InspectInventory(storeInventory);
                         }
@@ -161,18 +179,22 @@ namespace RPGStore
                 }
                 else if (input == "3")
                 {
+                    //Calls the Buy Function
                     Buy();                    
                 }
                 else if (input == "4")
                 {
+                    //Calls the Sell Function
                     Sell();
                 }
                 else if (input == "5")
                 {
+                    //Calls the Chat Function
                     shop.Chat();
                 }
                 else if (input == "9")
                 {
+                    //Calls the Debug Functions
                     DevFunction(userName);
                 }
             }

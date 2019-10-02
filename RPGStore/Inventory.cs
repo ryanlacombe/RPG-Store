@@ -221,6 +221,6 @@ namespace RPGStore
                     unpass--;
                 }
             }
-        }        
+        }
     }
 }
