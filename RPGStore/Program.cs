@@ -18,6 +18,7 @@ namespace RPGStore
             Console.WriteLine("What is your name?");
             playerName = Console.ReadLine();
 
+            //Checks if there is a save file
             if (File.Exists("player"))
             {
                 Console.WriteLine("Would you like to load a game?");
@@ -58,6 +59,27 @@ namespace RPGStore
                     Console.WriteLine("(Press Any Key to continue)");
                     Console.ReadKey();
                 }
+            }
+            //If there isn't a save file
+            else
+            {
+                //Prints out the intro to a new character
+                Console.WriteLine("\nAfter a quick search through the village, you find a suitible store: Iron Horse.");
+                Console.WriteLine("(Press Any Key to continue)");
+                Console.ReadKey();
+                Console.WriteLine("\nYou enter through the door.");
+                Console.WriteLine("You take a quick look of the interior from your current position.");
+                Console.WriteLine("There are various bits and bobs that adorn the walls around you.");
+                Console.WriteLine("Opposite both you and the door, is a counter and a man standing behind it.");
+                Console.WriteLine("You move forwards to reach the counter.");
+                Console.WriteLine("(Press Any Key to continue)");
+                Console.ReadKey();
+                Console.WriteLine("\nOnce you reach your destination, the man takes notice of your presence.");
+                Console.WriteLine("'Welcome to the Iron Horse! What is your name traveller?'");
+                Console.WriteLine("You decide to give the merchant your name. What could be the harm in it?");
+                Console.WriteLine("'Odd name... But, ah! I have a number of items useful to travellers such as yourself!'");
+                Console.WriteLine("(Press Any Key to continue)");
+                Console.ReadKey();
             }
             //Prints a tranistion into the main Game
             Console.WriteLine("\n'So, what are you looking for, " + playerName + "?'");
