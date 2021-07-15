@@ -11,6 +11,7 @@ During the intro: The game will output a section of text for you to read. Press 
 	text section or continue to the main game.
 
 Once you have entered into the main game, it will output a menu to you with the following options:
+	
 	0: Exit
 	1: View
 	2: Inspect
